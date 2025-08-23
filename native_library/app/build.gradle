@@ -1,0 +1,85 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'com.kezong.fat-aar'
+
+android {
+    compileSdkVersion 31
+    buildToolsVersion "31.0.0"
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 31
+        versionCode 1
+        versionName "1.0"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility  = JavaVersion.VERSION_1_8
+    }
+    kotlinOptions { jvmTarget = "1.8" }
+
+    // اگر بعداً خطای META-INF دادی، این‌ها رو باز کن:
+     packagingOptions {
+         exclude 'META-INF/DEPENDENCIES'
+         exclude 'META-INF/INDEX.LIST'
+         exclude 'META-INF/*.kotlin_module'
+     }
+}
+
+repositories {
+    google()
+    mavenCentral()
+    maven { url "https://jitpack.io" }
+}
+
+/** fat-aar ادغام وابستگی‌ها در خروجی */
+configurations {
+    embed { transitive = true }
+}
+
+dependencies {
+    embed("com.github.tuarua:FreKotlin:$frekotlin_version") {
+        exclude group: 'org.jetbrains.kotlin'
+        exclude group: 'org.jetbrains.kotlinx'
+        exclude group: 'androidx.core'
+        exclude group: 'androidx.activity'
+        exclude group: 'androidx.lifecycle'
+        exclude group: 'androidx.savedstate'
+        exclude group: 'androidx.annotation'
+        exclude group: 'androidx.collection'
+        exclude group: 'androidx.fragment'
+        exclude group: 'androidx.appcompat'
+    }
+
+    embed("com.github.cafebazaar.Poolakey:poolakey:2.2.0") {
+        exclude group: 'org.jetbrains.kotlin'
+        exclude group: 'org.jetbrains.kotlinx'
+        exclude group: 'androidx.core'
+        exclude group: 'androidx.activity'
+        exclude group: 'androidx.lifecycle'
+        exclude group: 'androidx.savedstate'
+        exclude group: 'androidx.annotation'
+        exclude group: 'androidx.collection'
+        exclude group: 'androidx.fragment'
+        exclude group: 'androidx.appcompat'
+    }
+
+    // برای کامپایل (داخل ANE بسته‌بندی نمی‌شوند)
+    compileOnly "org.jetbrains.kotlin:kotlin-stdlib:1.7.21"
+
+    // AndroidX فقط برای کامپایل
+    compileOnly 'androidx.core:core-ktx:1.13.1'
+    compileOnly 'androidx.activity:activity-ktx:1.9.0'
+    compileOnly 'androidx.lifecycle:lifecycle-runtime-ktx:2.8.0'
+    compileOnly 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.0'
+    compileOnly 'androidx.savedstate:savedstate-ktx:1.2.1'
+}

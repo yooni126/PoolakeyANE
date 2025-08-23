@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension xmlns="http://ns.adobe.com/air/extension/19.0">
+    <id>com.bazaar.poolakey</id>
+	<name>Poolakey ANE</name>
+	<copyright>This work is licensed under Apache License, Copyright (c) 2017 Tua Rua Ltd.</copyright>
+	<versionNumber>0.0.3</versionNumber>
+    <platforms>
+    	<platform name="Android-x86"> 
+           <applicationDeployment>
+				<nativeLibrary>classes.jar</nativeLibrary>
+				<initializer>com.bazaar.PoolakeyANE</initializer>
+				<finalizer>com.bazaar.PoolakeyANE</finalizer>
+			</applicationDeployment>
+        </platform>
+		<platform name="Android-ARM"> 
+           <applicationDeployment>
+				<nativeLibrary>classes.jar</nativeLibrary>
+				<initializer>com.bazaar.PoolakeyANE</initializer>
+				<finalizer>com.bazaar.PoolakeyANE</finalizer>
+			</applicationDeployment>
+        </platform>
+		<platform name="Android-ARM64">
+           <applicationDeployment>
+				<nativeLibrary>classes.jar</nativeLibrary>
+				<initializer>com.bazaar.PoolakeyANE</initializer>
+				<finalizer>com.bazaar.PoolakeyANE</finalizer>
+			</applicationDeployment>
+        </platform>
+        <platform name="default">
+            <applicationDeployment/>
+        </platform>
+    </platforms>
+</extension>
