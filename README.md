@@ -88,18 +88,18 @@ android:name="com.bazaar.poolakey.PaymentActivity"
 
 ## **متدهای ActionScript**
 
-رپر AS3 در کلاس `BazaarPoolakyPayment`:
+رپر AS3 در کلاس BazaarPoolakyPayment:
 
 ```` ActionScript
-- `// خرید اشتراک/محصول`  
+// خرید اشتراک/محصول  
 launchBazaarPayment(rsa:String, sku:String, payload:String="dev_pay"):void   
-- `// گرفتن اشتراک‌های فعال کاربر`  
+// گرفتن اشتراک‌های فعال کاربر  
 getSubscriptions(rsa:String):void 
-- `// گرفتن inappهای کاربر (مصرفی/غیرمصرفی)`  
+// گرفتن inappهای کاربر (مصرفی/غیرمصرفی) 
 getPurchasedInapps(rsa:String):void 
-- `// مصرف کردن inapp با purchaseToken`  
+// مصرف کردن inapp با purchaseToken 
 consumeInapp(token:String):void
-- `// بررسی واجد شرایط بودن Trial (قبل از خرید)` 
+// بررسی واجد شرایط بودن Trial (قبل از خرید)
 checkTrialSubscription(rsa:String):void 
     
 ```` 
@@ -171,6 +171,6 @@ function onTrialInfo(e:PoolakeyEvent):void {
 
 `````
 **نکتهٔ مهم Trial:**  
- `checkTrialSubscription` فقط *واجد شرایط بودن برای دریافت تریال در خرید بعدی* را می‌گوید؛ برای تشخیص «تریال/اشتراک فعّال فعلی» از `getSubscriptions` (و ترجیحاً تأیید سروری) استفاده کنید.
+ checkTrialSubscription فقط *واجد شرایط بودن برای دریافت تریال در خرید بعدی* را می‌گوید؛ برای تشخیص «تریال/اشتراک فعّال فعلی» از getSubscriptions (و ترجیحاً تأیید سروری) استفاده کنید.
 
 
