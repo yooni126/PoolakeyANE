@@ -20,9 +20,36 @@ package com.bazaar {
             PoolakeyANEContext.context.call("launchBazaarPayment", rsa_key, sku_id, _payload);
         }
 
-        public function getSubscriptions(base64Key:String):void {
-            PoolakeyANEContext.context.call("getSubscriptions", base64Key);
+        public function getSubscriptions(rsa:String):void {
+            if (!PoolakeyANEContext.context)
+                return;
+            PoolakeyANEContext.context.call("getSubscriptions", rsa);
         }
+
+        public function subscribe(rsa:String, sku:String, payload:String = ""):void {
+            if (!PoolakeyANEContext.context)
+                return;
+            PoolakeyANEContext.context.call("subscribe", rsa, sku, payload); // اسم تابع باید با Kotlin یکی باشد
+        }
+
+        public function getPurchasedInapps(rsa:String):void {
+            if (!PoolakeyANEContext.context)
+                return;
+            PoolakeyANEContext.context.call("getPurchasedInapps", rsa);
+        }
+
+        public function consumeInapp(purchaseToken:String):void {
+            if (!PoolakeyANEContext.context)
+                return;
+            PoolakeyANEContext.context.call("consumeInapp", purchaseToken);
+        }
+
+        public function checkTrialSubscription(rsa:String = ""):void {
+            if (!PoolakeyANEContext.context)
+                return;
+            PoolakeyANEContext.context.call("checkTrialSubscription", rsa);
+        }
+
 
         public static function dispose():void {
             if (PoolakeyANEContext.context) {

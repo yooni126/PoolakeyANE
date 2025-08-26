@@ -1,0 +1,1 @@
+.\gradlew.bat clean :app:assembleRelease --stacktrace --refresh-dependencies

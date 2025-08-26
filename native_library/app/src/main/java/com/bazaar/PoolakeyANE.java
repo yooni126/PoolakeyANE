@@ -8,7 +8,13 @@ import com.bazaar.poolakey.KotlinController;
 public class PoolakeyANE implements FREExtension {
     private String NAME = "com.bazaar.PoolakeyANE";
     private static final String[] FUNCTIONS = {
-            "launchBazaarPayment"
+             "launchBazaarPayment",
+             "getSubscriptions",
+             "getPurchasedInapps",
+             "consumeInapp",
+             "checkTrialSubscription",
+             "ping",
+             "listFunctions"
     };
 
     public static PoolakeyANEContext extensionContext;
@@ -17,6 +23,7 @@ public class PoolakeyANE implements FREExtension {
     public void initialize() {
 
     }
+    
 
     @Override
     public FREContext createContext(String s) {

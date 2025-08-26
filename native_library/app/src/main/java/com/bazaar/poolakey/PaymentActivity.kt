@@ -8,42 +8,21 @@ import ir.cafebazaar.poolakey.Payment
 import ir.cafebazaar.poolakey.config.PaymentConfiguration
 import ir.cafebazaar.poolakey.config.SecurityCheck
 import ir.cafebazaar.poolakey.request.PurchaseRequest
+import com.bazaar.poolakey.BridgeMaker
 
 class PaymentActivity : ComponentActivity() {
-    private lateinit var paymentConnection: Connection
-    private var isDisposed: Boolean = false
-    private var isPurchaseSucc: Boolean = false
-
-    override fun onDestroy() {
-        isDisposed = true
-
-        if (isPurchaseSucc)
-            BridgeMaker.purchaseSucceed()
-
-        paymentConnection.disconnect()
-
-
-        // Toast.makeText(this, "onDestroy---------------------", Toast.LENGTH_SHORT).show()
-
-        super.onDestroy()
-    }
-
-
-    lateinit var _activity: PaymentActivity
-    lateinit var productId: String
+    private var paymentConnection: Connection? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val base64Key = intent.getStringExtra("BASE64KEY") ?: run {
             Toast.makeText(this, "کلید RSA نامعتبر است", Toast.LENGTH_SHORT).show()
-            finish()
-            return
+            finish(); return
         }
         val productId = intent.getStringExtra("productId") ?: run {
             Toast.makeText(this, "شناسه محصول نامعتبر است", Toast.LENGTH_SHORT).show()
-            finish()
-            return
+            finish(); return
         }
         val payload = intent.getStringExtra("payload") ?: ""
 
@@ -56,48 +35,65 @@ class PaymentActivity : ComponentActivity() {
 
         paymentConnection = payment.connect {
             connectionSucceed {
-                val purchaseRequest = PurchaseRequest(
-                    productId = productId,
-                    payload = payload
-                )
+                val req = PurchaseRequest(productId = productId, payload = payload)
                 payment.purchaseProduct(
                     registry = activityResultRegistry,
-                    request = purchaseRequest
+                    request = req
                 ) {
                     purchaseFlowBegan {
-                        // UI بازار باز شد
+                        /* UI بازار باز شد */
+                        BridgeMaker.purchaseFlowBegan("inapp")
                     }
+
                     failedToBeginFlow {
-                        Toast.makeText(this@PaymentActivity, "خطا در شروع خرید", Toast.LENGTH_SHORT).show()
+                        BridgeMaker.beginFlowFailed("inapp")
+                        Toast.makeText(this@PaymentActivity,
+                            "خطا در شروع خرید", Toast.LENGTH_SHORT).show()
                         finish()
                     }
-                    purchaseSucceed {
-                        isPurchaseSucc = true
+
+                    purchaseSucceed { purchase ->
+                        // اینجا بلافاصله رویداد رو بفرست
+                        val json = """{
+                          "productId":"${purchase.productId}",
+                          "purchaseToken":"${purchase.purchaseToken}",
+                          "purchaseTime":${purchase.purchaseTime},
+                          "payload":"$payload"
+                        }""".trimIndent()
+                        try { BridgeMaker.dispatch("PURCHASE_SUCCESS", json) } catch (_: Throwable) { }
                         finish()
                     }
+
                     purchaseCanceled {
-                        Toast.makeText(this@PaymentActivity, "پرداخت لغو شد", Toast.LENGTH_SHORT).show()
+                        BridgeMaker.purchaseCanceled("inapp")
+                        Toast.makeText(this@PaymentActivity,
+                            "پرداخت لغو شد", Toast.LENGTH_SHORT).show()
                         finish()
                     }
+
                     purchaseFailed {
+                        BridgeMaker.purchaseFailed("inapp")
                         Toast.makeText(this@PaymentActivity, "خرید ناموفق بود", Toast.LENGTH_SHORT).show()
                         finish()
                     }
                 }
             }
             connectionFailed {
+                BridgeMaker.connectionFailed(it.message ?: "unknown")
                 Toast.makeText(this@PaymentActivity, "اتصال به بازار ناموفق بود", Toast.LENGTH_SHORT).show()
                 finish()
             }
             disconnected {
-                if (!isDisposed) {
-                    Toast.makeText(this@PaymentActivity, "اتصال به بازار برقرار نیست", Toast.LENGTH_SHORT).show()
-                }
+                BridgeMaker.disconnected()
+                //Toast.makeText(this@PaymentActivity, "اتصال به بازار برقرار نیست", Toast.LENGTH_SHORT).show()
                 finish()
             }
         }
     }
-    
 
-    
+    override fun onDestroy() {
+        try { paymentConnection?.disconnect() } catch (_: Throwable) {}
+        paymentConnection = null
+        super.onDestroy()
+    }
 }
