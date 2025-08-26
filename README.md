@@ -58,8 +58,8 @@
    <package android:name="com.farsitel.bazaar" />
 </queries>
 <application> 
-<activity 
-android:name="com.bazaar.poolakey.PaymentActivity" 
+<activity
+       android:name="com.bazaar.poolakey.PaymentActivity" 
        android:exported="true" 
        android:configChanges="keyboardHidden|orientation" 
        android:screenOrientation="portrait"
