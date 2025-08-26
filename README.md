@@ -86,8 +86,6 @@ android:name="com.bazaar.poolakey.PaymentActivity"
 
 ## 
 
-## 
-
 ## **متدهای ActionScript**
 
 رپر AS3 در کلاس `BazaarPoolakyPayment`:
@@ -97,12 +95,10 @@ android:name="com.bazaar.poolakey.PaymentActivity"
 launchBazaarPayment(rsa:String, sku:String, payload:String="dev_pay"):void   
 - `// گرفتن اشتراک‌های فعال کاربر`  
 getSubscriptions(rsa:String):void 
-  
 - `// گرفتن inappهای کاربر (مصرفی/غیرمصرفی)`  
 getPurchasedInapps(rsa:String):void 
 - `// مصرف کردن inapp با purchaseToken`  
-consumeInapp(token:String):void`  
-  
+consumeInapp(token:String):void
 - `// بررسی واجد شرایط بودن Trial (قبل از خرید)` 
 checkTrialSubscription(rsa:String):void 
     
@@ -110,66 +106,68 @@ checkTrialSubscription(rsa:String):void
 
   ## **نمونهٔ استفاده سریع**
 ```` ActionScript
-- `import com.bazaar.BazaarPoolakyPayment;`  
-- `import com.bazaar.PoolakeyEvent;`  
--   
-- `const RSA:String = "----- YOUR RSA PUBLIC KEY FROM BAZAAR -----";`  
-- `const SUB_SKU:String = "your.subscription.sku"; // مثلا sub_60`  
--   
-- `var pay:BazaarPoolakyPayment = BazaarPoolakyPayment.instance;`  
--   
-- `// رویدادها`  
-- `pay.addEventListener(PoolakeyEvent.PURCHASE_FLOW_BEGAN, onFlowBegan);`  
-- `pay.addEventListener(PoolakeyEvent.PURCHASE_SUCCESS, onPurchaseSuccess);`  
-- `pay.addEventListener(PoolakeyEvent.SUBSCRIPTIONS_RESULT, onSubsResult);`  
-- `pay.addEventListener(PoolakeyEvent.INAPP_PURCHASES_RESULT, onInappsResult);`  
-- `pay.addEventListener(PoolakeyEvent.CONSUME_RESULT, onConsumeResult);`  
-- `pay.addEventListener(PoolakeyEvent.TRIAL_SUBSCRIPTION_RESULT, onTrialInfo);`  
--   
-- `// شروع خرید`  
-- `pay.launchBazaarPayment(RSA, SUB_SKU, "optional_payload");`  
--   
-- `// بررسی Trial قبل از خرید (اختیاری)`  
-- `pay.checkTrialSubscription(RSA);`  
--   
-- `// بررسی وضعیت اشتراک‌ها (شروع اپ یا بعد از خرید)`  
-- `pay.getSubscriptions(RSA);`  
--   
-- `// هندلرها`  
-- `function onFlowBegan(e:PoolakeyEvent):void {`  
--   `trace("FLOW:", e.level); // "inapp" یا "subs"`  
-- `}`  
--   
-- `function onPurchaseSuccess(e:PoolakeyEvent):void {`  
--   `trace("PURCHASE_SUCCESS:", e.data); // ممکنه "purchase_success" یا JSON باشد`  
--   `pay.getSubscriptions(RSA);`  
-- `}`  
--   
-- `function onSubsResult(e:PoolakeyEvent):void {`  
--   `if (!e.data || e.data.charAt(0) != "[") {`  
--     `trace("SUBSCRIPTIONS_RESULT error or invalid:", e.data);`  
--     `return;`  
--   `}`  
--   `const subs:Array = JSON.parse(e.data) as Array;`  
--   `const active:Boolean = subs.some(function(s:Object, ...rest):Boolean {`  
--     `return s.productId == SUB_SKU;`  
--   `});`  
--   `trace("is active:", active);`  
-- `}`  
--   
-- `function onInappsResult(e:PoolakeyEvent):void {`  
--   `trace("INAPPS:", e.data); // JSON array یا {"error":...}`  
-- `}`  
--   
-- `function onConsumeResult(e:PoolakeyEvent):void {`  
--   `trace("CONSUME:", e.data); // {"ok":true} یا {"error":...}`  
-- `}`  
--   
-- `function onTrialInfo(e:PoolakeyEvent):void {`  
--   `const o:Object = JSON.parse(e.data);`  
--   `if (o.error) { trace("TRIAL error:", o.error); return; }`  
--   `trace("trial available:", o.isAvailable, "days:", o.trialPeriodDays);`  
-- `}`
+import com.bazaar.BazaarPoolakyPayment;
+import com.bazaar.PoolakeyEvent;
+  
+const RSA:String = "----- YOUR RSA PUBLIC KEY FROM BAZAAR -----";
+const SUB_SKU:String = "your.subscription.sku"; // مثلا sub_60
+
+var pay:BazaarPoolakyPayment = BazaarPoolakyPayment.instance;
+
+// رویدادها 
+pay.addEventListener(PoolakeyEvent.PURCHASE_FLOW_BEGAN, onFlowBegan);
+pay.addEventListener(PoolakeyEvent.PURCHASE_SUCCESS, onPurchaseSuccess);
+pay.addEventListener(PoolakeyEvent.SUBSCRIPTIONS_RESULT, onSubsResult);
+pay.addEventListener(PoolakeyEvent.INAPP_PURCHASES_RESULT, onInappsResult);
+pay.addEventListener(PoolakeyEvent.CONSUME_RESULT, onConsumeResult);
+pay.addEventListener(PoolakeyEvent.TRIAL_SUBSCRIPTION_RESULT, onTrialInfo);
+// شروع خرید 
+pay.launchBazaarPayment(RSA, SUB_SKU, "optional_payload");
+   
+// بررسی Trial قبل از خرید (اختیاری)
+pay.checkTrialSubscription(RSA);
+  
+// بررسی وضعیت اشتراک‌ها (شروع اپ یا بعد از خرید)  
+pay.getSubscriptions(RSA);
+
+// مصرف کردن آیتم خریدنی
+pay.consumeInapp(token:String);
+  
+// هندلرها  
+function onFlowBegan(e:PoolakeyEvent):void {
+   trace("FLOW:", e.level); // "inapp" یا "subs"
+}
+  
+function onPurchaseSuccess(e:PoolakeyEvent):void {
+   trace("PURCHASE_SUCCESS:", e.data); // ممکنه "purchase_success" یا JSON باشد
+   pay.getSubscriptions(RSA);
+}  
+ 
+function onSubsResult(e:PoolakeyEvent):void {
+   if (!e.data || e.data.charAt(0) != "[") {
+     trace("SUBSCRIPTIONS_RESULT error or invalid:", e.data);
+     return; 
+} 
+const subs:Array = JSON.parse(e.data) as Array;
+const active:Boolean = subs.some(function(s:Object, ...rest):Boolean {
+     return s.productId == SUB_SKU;
+});
+  trace("is active:", active);
+}
+   
+function onInappsResult(e:PoolakeyEvent):void {
+   trace("INAPPS:", e.data); // JSON array یا {"error":...}
+} 
+   
+function onConsumeResult(e:PoolakeyEvent):void {
+   trace("CONSUME:", e.data); // {"ok":true} یا {"error":...}
+} 
+  
+function onTrialInfo(e:PoolakeyEvent):void {
+   const o:Object = JSON.parse(e.data); 
+   if (o.error) { trace("TRIAL error:", o.error); return; }
+   trace("trial available:", o.isAvailable, "days:", o.trialPeriodDays)
+}
 
 `````
 **نکتهٔ مهم Trial:**  
