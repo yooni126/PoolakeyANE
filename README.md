@@ -36,17 +36,17 @@
 -   `}`  
 - `}`  
 3. در Application Descriptor (XML):
-
+```` xml
 - `<extensions>`  
 -   `<extensionID>com.bazaar.poolakey</extensionID>`  
 - `</extensions>`  
-    
+````    
   ---
 
   ## **پیکربندی AndroidManifest**
 
 اگر از manifest سفارشی استفاده می‌کنی، موارد زیر را اضافه کن:
-
+```` xml
 - `<!-- دسترسی‌ها -->`  
 - `<uses-permission android:name="android.permission.INTERNET" />`  
 - `<uses-permission android:name="com.farsitel.bazaar.permission.PAY_THROUGH_BAZAAR" />`  
@@ -64,7 +64,7 @@
 -     `android:screenOrientation="portrait"`  
 -     `android:theme="@android:style/Theme.Translucent.NoTitleBar" />`  
     
-  ---
+````
 
   ## **رویدادها**
 
