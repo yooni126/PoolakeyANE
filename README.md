@@ -92,22 +92,21 @@ android:name="com.bazaar.poolakey.PaymentActivity"
 
 رپر AS3 در کلاس `BazaarPoolakyPayment`:
 
+```` ActionScript
 - `// خرید اشتراک/محصول`  
-- `launchBazaarPayment(rsa:String, sku:String, payload:String="dev_pay"):void`  
--   
+launchBazaarPayment(rsa:String, sku:String, payload:String="dev_pay"):void   
 - `// گرفتن اشتراک‌های فعال کاربر`  
-- `getSubscriptions(rsa:String):void`  
--   
+getSubscriptions(rsa:String):void 
+  
 - `// گرفتن inappهای کاربر (مصرفی/غیرمصرفی)`  
-- `getPurchasedInapps(rsa:String):void`  
--   
+getPurchasedInapps(rsa:String):void 
 - `// مصرف کردن inapp با purchaseToken`  
-- `consumeInapp(token:String):void`  
--   
-- `// بررسی واجد شرایط بودن Trial (قبل از خرید)`  
-- `checkTrialSubscription(rsa:String):void`  
+consumeInapp(token:String):void`  
+  
+- `// بررسی واجد شرایط بودن Trial (قبل از خرید)` 
+checkTrialSubscription(rsa:String):void 
     
-  ---
+```` 
 
   ## **نمونهٔ استفاده سریع**
 ```` ActionScript
