@@ -22,47 +22,48 @@
 1. فایل ANE را در پوشهٔ `lib/` پروژه قرار بده (مثلاً `lib/PoolakeyPayment.ane`).
 
 2. در `asconfig.json`:
+   
 
-- `{`  
--   `"compilerOptions": {`  
--     `"library-path": [`  
--       `"lib/PoolakeyPayment.ane"`  
--     `]`  
--   `},`  
--   `"airOptions": {`  
--     `"android": {`  
--       `"extdir": ["./lib"]`  
--     `}`  
--   `}`  
-- `}`  
+````json
+{
+"compilerOptions": {
+     "library-path": [
+       "lib/PoolakeyPayment.ane"
+     ]
+   },
+"airOptions": { 
+     "android": { 
+       "extdir": ["./lib"]
+     } 
+   }
+}
+````
 3. در Application Descriptor (XML):
 ```` xml
-- `<extensions>`  
--   `<extensionID>com.bazaar.poolakey</extensionID>`  
-- `</extensions>`  
+<extensions> 
+   <extensionID>com.bazaar.poolakey</extensionID>
+</extensions>  
 ````    
-  ---
 
   ## **پیکربندی AndroidManifest**
 
 اگر از manifest سفارشی استفاده می‌کنی، موارد زیر را اضافه کن:
 ```` xml
-- `<!-- دسترسی‌ها -->`  
-- `<uses-permission android:name="android.permission.INTERNET" />`  
-- `<uses-permission android:name="com.farsitel.bazaar.permission.PAY_THROUGH_BAZAAR" />`  
--   
-- `<!-- برای Intent به بازار (Optional اما مفید) -->`  
-- `<queries>`  
--   `<package android:name="com.farsitel.bazaar" />`  
-- `</queries>`  
--   
-- `<!-- Activity خرید (Transparent / بدون نوار عنوان) -->`  
-- `<activity`  
--     `android:name="com.bazaar.poolakey.PaymentActivity"`  
--     `android:exported="true"`  
--     `android:configChanges="keyboardHidden|orientation"`  
--     `android:screenOrientation="portrait"`  
--     `android:theme="@android:style/Theme.Translucent.NoTitleBar" />`  
+
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="com.farsitel.bazaar.permission.PAY_THROUGH_BAZAAR" />
+  
+
+<queries>  
+   <package android:name="com.farsitel.bazaar" />
+</queries>
+ 
+<activity 
+android:name="com.bazaar.poolakey.PaymentActivity" 
+       android:exported="true" 
+       android:configChanges="keyboardHidden|orientation" 
+       android:screenOrientation="portrait"
+       android:theme="@android:style/Theme.Translucent.NoTitleBar" />
     
 ````
 
