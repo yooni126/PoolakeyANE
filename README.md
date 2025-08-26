@@ -171,9 +171,8 @@
 -   `trace("trial available:", o.isAvailable, "days:", o.trialPeriodDays);`  
 - `}`
 
-```` ActionScript
+`````
 **نکتهٔ مهم Trial:**  
  `checkTrialSubscription` فقط *واجد شرایط بودن برای دریافت تریال در خرید بعدی* را می‌گوید؛ برای تشخیص «تریال/اشتراک فعّال فعلی» از `getSubscriptions` (و ترجیحاً تأیید سروری) استفاده کنید.
 
----
 
