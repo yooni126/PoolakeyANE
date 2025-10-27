@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<application xmlns="http://ns.adobe.com/air/application/51.1">
+	<id>bazaar.poolakey</id>
+	<versionNumber>1.0</versionNumber>
+    <versionLabel>1.0</versionLabel>
+	<supportedProfiles>mobileDevice</supportedProfiles>
+	<filename>Poolakey</filename>
+	<name>Poolakey</name>
+	<android>
+        <containsVideo>false</containsVideo>
+		<manifestAdditions>
+			<![CDATA[<manifest android:installLocation="auto">
+            <uses-sdk android:minSdkVersion ="21" android:targetSdkVersion="34"/>
+	<uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.farsitel.bazaar.permission.PAY_THROUGH_BAZAAR"/>
+	<queries>
+       <package android:name="com.farsitel.bazaar"/>
+    </queries>
+	<application android:hardwareAccelerated="true" android:allowBackup="true" android:appComponentFactory="androidx.core.app.CoreComponentFactory">
+		<meta-data android:name="android.max_aspect" android:value="2.1"/>
+        <meta-data android:name="android.notch_support" android:value="true"/>
+    <activity
+    android:name="com.bazaar.poolakey.PaymentActivity"
+    android:exported="true"
+	android:configChanges="keyboardHidden|orientation"
+	android:screenOrientation="portrait" 
+    android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+    <receiver
+            android:name="ir.cafebazaar.poolakey.receiver.BillingReceiver"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.farsitel.bazaar.purchase" />
+                <action android:name="com.farsitel.bazaar.billingSupport" />
+                <action android:name="com.farsitel.bazaar.consume" />
+                <action android:name="com.farsitel.bazaar.getPurchase" />
+                <action android:name="com.farsitel.bazaar.skuDetail" />
+                <action android:name="com.farsitel.bazaar.checkTrialSubscription" />
+            </intent-filter>
+        </receiver>
+    </application>
+</manifest>]]>
+		</manifestAdditions>
+	</android>
+    <resdir>res</resdir>
+	<iPhone>
+	</iPhone>
+	<initialWindow>
+		<title>Poolakey</title>
+		<content>bin/Poolakey.swf</content>
+		<visible>true</visible>
+		<fullScreen>false</fullScreen>
+		<autoOrients>false</autoOrients>
+		<aspectRatio>portrait</aspectRatio>
+		<renderMode>direct</renderMode>
+		<depthAndStencil>true</depthAndStencil>
+		<!-- required for 3D -->
+		<systemChrome>standard</systemChrome>
+	</initialWindow>
+	<icon>
+    <image16x16>AppIconsForPublish/16.png</image16x16>
+    <image29x29>AppIconsForPublish/29.png</image29x29>
+    <image32x32>AppIconsForPublish/32.png</image32x32>
+    <image36x36>AppIconsForPublish/36.png</image36x36>
+    <image40x40>AppIconsForPublish/40.png</image40x40>
+    <image48x48>AppIconsForPublish/48.png</image48x48>
+    <image50x50>AppIconsForPublish/50.png</image50x50>
+    <image57x57>AppIconsForPublish/57.png</image57x57>
+    <image58x58>AppIconsForPublish/58.png</image58x58>
+    <image60x60>AppIconsForPublish/60.png</image60x60>
+    <image72x72>AppIconsForPublish/72.png</image72x72>
+    <image75x75>AppIconsForPublish/75.png</image75x75>
+    <image76x76>AppIconsForPublish/76.png</image76x76>
+    <image80x80>AppIconsForPublish/80.png</image80x80>
+    <image87x87>AppIconsForPublish/87.png</image87x87>
+    <image100x100>AppIconsForPublish/100.png</image100x100>
+    <image114x114>AppIconsForPublish/114.png</image114x114>
+    <image120x120>AppIconsForPublish/120.png</image120x120>
+    <image128x128>AppIconsForPublish/128.png</image128x128>
+    <image144x144>AppIconsForPublish/144.png</image144x144>
+    <image152x152>AppIconsForPublish/152.png</image152x152>
+    <image167x167>AppIconsForPublish/167.png</image167x167>
+    <image180x180>AppIconsForPublish/180.png</image180x180>
+    <image512x512>AppIconsForPublish/512.png</image512x512>
+    <image1024x1024>AppIconsForPublish/1024.png</image1024x1024>
+  </icon>
+	<extensions>
+            <extensionID>androidx.core</extensionID>
+            <extensionID>com.jetbrains.kotlin</extensionID>
+            <extensionID>com.bazaar.poolakey</extensionID>
+	</extensions>
+</application>

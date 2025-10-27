@@ -1,0 +1,57 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Clean AIR outputs",
+			"type": "shell",
+			"windows": {
+				"command": "powershell",
+				"args": [
+					"-ExecutionPolicy",
+					"Bypass",
+					"-Command",
+					"if(Test-Path bin){Remove-Item bin -Recurse -Force}; if(Test-Path bin-debug){Remove-Item bin-debug -Recurse -Force}; if(Test-Path bin-release){Remove-Item bin-release -Recurse -Force}"
+				]
+			},
+			"problemMatcher": []
+		},
+		{
+			"type": "actionscript",
+			"debug": true,
+			"air": "android",
+			"asconfig": "asconfig.json",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "Adobe AIR: package Android debug - asconfig.json"
+		},
+		{
+			"type": "actionscript",
+			"debug": false,
+			"air": "android",
+			"asconfig": "asconfig.json",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "Adobe AIR: package Android release - asconfig.json"
+		},
+		{
+			"type": "actionscript",
+			"debug": false,
+			"group": "build",
+			"problemMatcher": [],
+			"label": "ActionScript: compile release - asconfig.json"
+		},
+		
+		
+		{
+			"label": "start-logcat-findstr",
+			"type": "shell",
+			"command": "cmd",
+			"args": [
+				"/c",
+				"adb logcat | findstr /C:\"distriqt\" /C:\"AndroidRuntime\" /C:\"System.err\""
+			],
+			"isBackground": true,
+			"problemMatcher": []
+		},
+	]
+}

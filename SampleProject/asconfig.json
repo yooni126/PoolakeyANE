@@ -1,0 +1,61 @@
+{
+	"compilerOptions": {
+		"source-path": [
+			"src",
+			"globalClassPath"
+		],
+		"output": "bin/Poolakey.swf",
+		"default-frame-rate": 30,
+		"default-background-color": "#FFFFFF",
+		"default-size": {
+			"width": 480,
+			"height": 762
+		},
+		"target-player": "51.0",
+		"accessible": false,
+		"advanced-telemetry": true,
+		"benchmark": false,
+		"optimize": true,
+		"omit-trace-statements": false,
+		"show-unused-type-selector-warnings": true,
+		"strict": true,
+		"use-network": true,
+		"use-resource-bundle-metadata": true,
+		"warnings": false,
+		"verbose-stacktraces": false,
+		"static-link-runtime-shared-libraries": true,
+		"library-path": [
+			"lib/PoolakeyPayment.ane"
+		]
+	},
+	"airOptions": {
+		"android": {
+			"listen": true,
+			"output": "bin/Poolakey.apk",
+			"arch": "armv8",
+			"extdir": [
+				"./lib"
+			],
+			"files": [
+				{
+					"file": "AppIconsForPublish",
+					"path": "AppIconsForPublish"
+				}
+			],
+			"signingOptions": {
+				"storetype": "pkcs12",
+				"keystore": "cert/key.p12"
+			}
+		}
+	},
+	"include-sources": [
+		"source",
+		"third-party/library"
+	],
+	"files": [
+		"src/Startup.as"
+	],
+	"config": "airmobile",
+	"application": "android.xml",
+	"additionalOptions": "-swf-version=51"
+}

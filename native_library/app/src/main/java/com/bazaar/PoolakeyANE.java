@@ -6,7 +6,7 @@ import com.bazaar.poolakey.KotlinController;
 
 @SuppressWarnings({"unused", "WeakerAccess", "FieldCanBeLocal"})
 public class PoolakeyANE implements FREExtension {
-    private String NAME = "com.bazaar.PoolakeyANE";
+    private String NAME = "com.bazaar.poolakey";
     private static final String[] FUNCTIONS = {
              "launchBazaarPayment",
              "getSubscriptions",
