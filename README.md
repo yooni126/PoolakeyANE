@@ -41,6 +41,8 @@
 3. در Application Descriptor (XML):
 ```` xml
 <extensions> 
+   <extensionID>androidx.core</extensionID>
+   <extensionID>com.jetbrains.kotlin</extensionID>
    <extensionID>com.bazaar.poolakey</extensionID>
 </extensions>  
 ````    
@@ -57,13 +59,26 @@
 <queries>  
    <package android:name="com.farsitel.bazaar" />
 </queries>
- 
-<activity 
-android:name="com.bazaar.poolakey.PaymentActivity" 
+<application> 
+<activity
+       android:name="com.bazaar.poolakey.PaymentActivity" 
        android:exported="true" 
        android:configChanges="keyboardHidden|orientation" 
        android:screenOrientation="portrait"
        android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+<receiver
+            android:name="ir.cafebazaar.poolakey.receiver.BillingReceiver"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.farsitel.bazaar.purchase" />
+                <action android:name="com.farsitel.bazaar.billingSupport" />
+                <action android:name="com.farsitel.bazaar.consume" />
+                <action android:name="com.farsitel.bazaar.getPurchase" />
+                <action android:name="com.farsitel.bazaar.skuDetail" />
+                <action android:name="com.farsitel.bazaar.checkTrialSubscription" />
+            </intent-filter>
+</receiver>
+</application> 
     
 ````
 
