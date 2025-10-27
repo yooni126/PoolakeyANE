@@ -41,6 +41,8 @@
 3. در Application Descriptor (XML):
 ```` xml
 <extensions> 
+   <extensionID>androidx.core</extensionID>
+   <extensionID>com.jetbrains.kotlin</extensionID>
    <extensionID>com.bazaar.poolakey</extensionID>
 </extensions>  
 ````    
