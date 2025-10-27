@@ -14,6 +14,8 @@
 * **RSA Public Key** از کنسول بازار (برای SecurityCheck)
 
 * AIR SDK \+ VSCode/IDE دلخواه
+  
+* com.jetbrains.kotlin.ane & androidx.core.ane
 
   ---
 
