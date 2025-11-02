@@ -138,14 +138,12 @@ pay.addEventListener(PoolakeyEvent.SUBSCRIPTIONS_RESULT, onSubsResult);
 pay.addEventListener(PoolakeyEvent.INAPP_PURCHASES_RESULT, onInappsResult);
 pay.addEventListener(PoolakeyEvent.CONSUME_RESULT, onConsumeResult);
 pay.addEventListener(PoolakeyEvent.TRIAL_SUBSCRIPTION_RESULT, onTrialInfo);
+NativeApplication.nativeApplication.addEventListener(flash.events.Event.ACTIVATE, onAppResume);
 // شروع خرید 
 pay.launchBazaarPayment(RSA, SUB_SKU, "optional_payload");
    
 // بررسی Trial قبل از خرید (اختیاری)
 pay.checkTrialSubscription(RSA);
-  
-// بررسی وضعیت اشتراک‌ها (شروع اپ یا بعد از خرید)  
-pay.getSubscriptions(RSA);
 
 // مصرف کردن آیتم خریدنی
 pay.consumeInapp(token:String);
@@ -184,6 +182,11 @@ function onTrialInfo(e:PoolakeyEvent):void {
    const o:Object = JSON.parse(e.data); 
    if (o.error) { trace("TRIAL error:", o.error); return; }
    trace("trial available:", o.isAvailable, "days:", o.trialPeriodDays)
+}
+
+function onAppResume(event:flash.events.Event):void {
+// بررسی وضعیت اشتراک‌ها (شروع اپ یا بعد از خرید)  
+       poolakey.getSubscriptions(RSA);
 }
 
 `````
