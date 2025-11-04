@@ -4,7 +4,6 @@
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
-
     {
       "name": "Launch & debug SWF",
       "type": "swf",
@@ -16,18 +15,41 @@
     {
       "type": "swf",
       "request": "attach",
-      "name": "Install and Debug on Android",
+      "name": "Install, Run, and Debug SWF on Android",
       "connect": true,
       "platform": "android",
       "preLaunchTask": "Adobe AIR: package Android debug - asconfig.json"
     },
     {
-      "name": "Install and Run on Android ",
+      "name": "Install and Run on Android",
       "type": "swf",
       "request": "attach",
       "platform": "android",
-      "connect": false,
       "preLaunchTask": "Adobe AIR: package Android release - asconfig.json"
+    },
+    {
+      "name": "Install and Debug on iOS",
+      "type": "swf",
+      "request": "attach",
+      "platform": "ios",
+      "connect": true,
+      "preLaunchTask": "Adobe AIR: package iOS debug - asconfig.json"
+    },
+    {
+      "name": "Install and Run on iOS",
+      "type": "swf",
+      "request": "attach",
+      "platform": "ios",
+      "connect": false,
+      "preLaunchTask": "Adobe AIR: package iOS release - asconfig.json"
+    },
+    {
+      "name": "Build iOS App Store Release",
+      "type": "swf",
+      "request": "attach",
+      "platform": "ios",
+      "connect": false,
+      "preLaunchTask": "Adobe AIR: package iOS release - asconfig.json"
     }
   ]
 }
