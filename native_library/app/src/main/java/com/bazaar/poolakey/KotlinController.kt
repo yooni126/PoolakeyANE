@@ -29,6 +29,7 @@ class KotlinController : FreKotlinMainController,
         val rsaKey: String = (if (argv.size > 0) freString(argv[0]) else null) ?: ""
         val skuId : String = (if (argv.size > 1) freString(argv[1]) else null) ?: ""
         val payload: String = (if (argv.size > 2) freString(argv[2]) else null) ?: ""
+        val dynamicPriceToken: String = (if (argv.size > 3) freString(argv[3]) else null) ?: ""
 
         _MainActivity = this
         val act = context?.activity ?: return
@@ -38,6 +39,7 @@ class KotlinController : FreKotlinMainController,
             putExtra("BASE64KEY", rsaKey)
             putExtra("productId", skuId)
             putExtra("payload", payload)
+            putExtra("dynamicPriceToken", dynamicPriceToken)
             addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
         }
         act.startActivity(intent)

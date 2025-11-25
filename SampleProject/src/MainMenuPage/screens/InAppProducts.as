@@ -18,7 +18,6 @@ package MainMenuPage.screens {
     import com.bazaar.BazaarPoolakyPayment;
     import flash.system.Capabilities;
     import com.bazaar.PoolakeyEvent;
-    import com.bazaar.PoolakeyANEContext;
 
     /**
      * ...
@@ -79,12 +78,12 @@ package MainMenuPage.screens {
             // رویدادها
             poolakey.addEventListener(PoolakeyEvent.SUBSCRIPTIONS_RESULT, onSubsResult);
             poolakey.addEventListener(PoolakeyEvent.TRIAL_SUBSCRIPTION_RESULT, onTrialInfo);
+            NativeApplication.nativeApplication.addEventListener(flash.events.Event.ACTIVATE, onAppResume);
             // مقادیر تست خودت را بگذار
             const RSA:String = ""; // کلید RSA که در کنسول بازار قرار دارد
             const SKU:String = ""; // دقیقاً همان sku در کنسول بازار
             const PAYLOAD:String = "dev_test";
             poolakey.launchBazaarPayment(RSA, SKU, PAYLOAD);
-            poolakey.getSubscriptions(RSA);
             poolakey.checkTrialSubscription(RSA);
         }
 
@@ -106,6 +105,7 @@ package MainMenuPage.screens {
         }
 
         private function onSubsResult(e:PoolakeyEvent):void {
+            poolakey.removeEventListener(PoolakeyEvent.SUBSCRIPTIONS_RESULT, onSubsResult);
             if (e.data && e.data.substr(0, 8) == "{\"error\"") {
                 trace("SUBSCRIPTIONS_RESULT error:", e.data);
                 return;
@@ -132,6 +132,12 @@ package MainMenuPage.screens {
             var reuslt:String = hasIt ? "✅ اشتراک فعال/ثبت‌شده است برای " + targetSku : "❌ اشتراک برای " + targetSku + " پیدا نشد";
             trace(reuslt);
         }
+
+         private function onAppResume(event:flash.events.Event):void {
+            NativeApplication.nativeApplication.removeEventListener(flash.events.Event.ACTIVATE, onAppResume);
+            poolakey.getSubscriptions(PubValue.RSA);
+        }
+
     }
 
 

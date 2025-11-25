@@ -25,7 +25,7 @@
 		"verbose-stacktraces": false,
 		"static-link-runtime-shared-libraries": true,
 		"library-path": [
-			"lib/PoolakeyPayment.ane"
+			"lib/PoolakeyPayment19.ane"
 		]
 	},
 	"airOptions": {

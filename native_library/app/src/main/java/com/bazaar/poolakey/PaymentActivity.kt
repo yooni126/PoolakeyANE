@@ -25,7 +25,7 @@ class PaymentActivity : ComponentActivity() {
             finish(); return
         }
         val payload = intent.getStringExtra("payload") ?: ""
-
+        val dynamicPriceToken = intent.getStringExtra("dynamicPriceToken") ?: ""
         val payment = Payment(
             context = this,
             config = PaymentConfiguration(
@@ -35,7 +35,7 @@ class PaymentActivity : ComponentActivity() {
 
         paymentConnection = payment.connect {
             connectionSucceed {
-                val req = PurchaseRequest(productId = productId, payload = payload)
+                val req = PurchaseRequest(productId = productId, payload = payload,dynamicPriceToken = dynamicPriceToken.takeIf { it.isNotEmpty() })
                 payment.purchaseProduct(
                     registry = activityResultRegistry,
                     request = req

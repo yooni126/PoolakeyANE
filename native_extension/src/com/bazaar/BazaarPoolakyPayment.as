@@ -16,8 +16,11 @@ package com.bazaar {
             return _instance;
         }
 
-        public function launchBazaarPayment(rsa_key:String, sku_id:String, _payload:String = "dev_pay"):void {
-            PoolakeyANEContext.context.call("launchBazaarPayment", rsa_key, sku_id, _payload);
+        public function launchBazaarPayment(rsa_key:String, sku_id:String, payload:String = "dev_pay", dynamicPriceToken:String = ""):void {
+            if (!PoolakeyANEContext.context)
+                return;
+
+            PoolakeyANEContext.context.call("launchBazaarPayment", rsa_key, sku_id, payload, dynamicPriceToken);
         }
 
         public function getSubscriptions(rsa:String):void {
